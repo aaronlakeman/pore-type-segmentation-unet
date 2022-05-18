@@ -2,12 +2,13 @@
 
 Here you find a Skeleton project for building a simple model in a python script or notebook and log the results on MLFlow.
 
-There are two ways to do it: 
-* In Jupyter Notebooks:
-    We train a simple model in the [jupyter notebook](notebooks/EDA-and-modeling.ipynb), where we select only some features and do minimal cleaning. The hyperparameters of feature engineering and modeling will be logged with MLflow
+There are two ways to do it:
 
-* With Python scripts:
-    The [main script](modeling/train.py) will go through exactly the same process as the jupyter notebook and also log the hyperparameters with MLflow
+- In Jupyter Notebooks:
+  We train a simple model in the [jupyter notebook](notebooks/EDA-and-modeling.ipynb), where we select only some features and do minimal cleaning. The hyperparameters of feature engineering and modeling will be logged with MLflow
+
+- With Python scripts:
+  The [main script](modeling/train.py) will go through exactly the same process as the jupyter notebook and also log the hyperparameters with MLflow
 
 Data used is the [coffee quality dataset](https://github.com/jldbc/coffee-quality-database).
 

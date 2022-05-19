@@ -1,22 +1,95 @@
-# ds-modeling-pipeline
+<div id="top"></div>
+<!-- PROJECT SHIELDS -->
+<!--
+*** I'm using markdown "reference style" links for readability.
+*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
+*** See the bottom of this document for the declaration of the reference variables
+*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
+*** https://www.markdownguide.org/basic-syntax/#reference-style-links
+-->
 
-Here you find a Skeleton project for building a simple model in a python script or notebook and log the results on MLFlow.
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
-There are two ways to do it:
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/aaronlakeman/grain-boundary-detection">
+    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  </a>
 
-- In Jupyter Notebooks:
-  We train a simple model in the [jupyter notebook](notebooks/EDA-and-modeling.ipynb), where we select only some features and do minimal cleaning. The hyperparameters of feature engineering and modeling will be logged with MLflow
+<h3 align="center">Grain Boundary Detection in Salt Thin Section using Machine Learning</h3>
 
-- With Python scripts:
-  The [main script](modeling/train.py) will go through exactly the same process as the jupyter notebook and also log the hyperparameters with MLflow
+  <p align="center">
+    This project was realized as the capstone project of the neuefische data science bootcamp.
+    <br />
+    <br />
+    <br />
+      <a href="https://github.com/aaronlakeman/grain-boundary-detection/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/aaronlakeman/grain-boundary-detection/issues">Request Feature</a>
+  </p>
+</div>
 
-Data used is the [coffee quality dataset](https://github.com/jldbc/coffee-quality-database).
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
 
-## Requirements:
+<!-- ABOUT THE PROJECT -->
 
-- pyenv with Python: 3.9.4
+## About The Project
 
-### Setup
+![salt](./images/salt.jpeg)
+
+Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+### Built With
+
+- [Tensorflow](https://www.tensorflow.org/)
+- [GDAL](https://gdal.org/)
+- [Scikit-learn](https://scikit-learn.org/)
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- GETTING STARTED -->
+
+## Getting Started
+
+This is an example of how you may give instructions on setting up your project locally.
+To get a local copy up and running follow these simple example steps.
+
+### Prerequisites
+
+This is an example of how to list things you need to use the software and how to install them.
+
+### Installation
 
 Use the requirements file in this repo to create a new environment.
 
@@ -32,82 +105,70 @@ pip install --upgrade pip
 pip install -r requirements_dev.txt
 ```
 
-The `requirements.txt` file contains the libraries needed for deployment.. of model or dashboard .. thus no jupyter or other libs used during development.
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-The MLFLOW URI should **not be stored on git**, you have two options, to save it locally in the `.mlflow_uri` file:
-
-```BASH
-echo http://127.0.0.1:5000/ > .mlflow_uri
-```
-
-This will create a local file where the uri is stored which will not be added on github (`.mlflow_uri` is in the `.gitignore` file). Alternatively you can export it as an environment variable with
-
-```bash
-export MLFLOW_URI=http://127.0.0.1:5000/
-```
-
-This links to your local mlflow, if you want to use a different one, then change the set uri.
-
-The code in the [config.py](modeling/config.py) will try to read it locally and if the file doesn't exist will look in the env var.. IF that is not set the URI will be empty in your code.
+<!-- USAGE EXAMPLES -->
 
 ## Usage
 
-### Creating an MLFlow experiment
+Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
-You can do it via the GUI or via [command line](https://www.mlflow.org/docs/latest/tracking.html#managing-experiments-and-runs-with-the-tracking-service-api) if you use the local mlflow:
+_For more examples, please refer to the [Documentation](https://example.com)_
 
-```bash
-mlflow experiments create --experiment-name 0-template-ds-modeling
-```
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-Check your local mlflow
+<!-- CONTRIBUTING -->
 
-```bash
-mlflow ui
-```
+## Contributing
 
-and open the link [http://127.0.0.1:5000](http://127.0.0.1:5000)
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-This will throw an error if the experiment already exists. **Save the experiment name in the [config file](modeling/config.py).**
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Don't forget to give the project a star! Thanks again!
 
-In order to train the model and store test data in the data folder and the model in models run:
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-```bash
-#activate env
-source .venv/bin/activate
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-python -m modeling.train
-```
+<!-- LICENSE -->
 
-In order to test that predict works on a test set you created run:
+## License
 
-```bash
-python modeling/predict.py models/linear data/X_test.csv data/y_test.csv
-```
+Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-## About MLFLOW -- delete this when using the template
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-MLFlow is a tool for tracking ML experiments. You can run it locally or remotely. It stores all the information about experiments in a database.
-And you can see the overview via the GUI or access it via APIs. Sending data to mlflow is done via APIs. And with mlflow you can also store models on S3 where you version them and tag them as production for serving them in production.
-![mlflow workflow](images/0_general_tracking_mlflow.png)
+<!-- CONTACT -->
 
-### MLFlow GUI
+## Contact
 
-You can group model trainings in experiments. The granularity of what an experiment is up to your usecase. Recommended is to have an experiment per data product, as for all the runs in an experiment you can compare the results.
-![gui](images/1_gui.png)
+Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
 
-### Code to send data to MLFlow
+Project Link: [https://github.com/aaronlakeman/grain-boundary-detection](https://github.com/aaronlakeman/grain-boundary-detection)
 
-In order to send data about your model you need to set the connection information, via the tracking uri and also the experiment name (otherwise the default one is used). One run represents a model, and all the rest is metadata. For example if you want to save train MSE, test MSE and validation MSE you need to name them as 3 different metrics.
-If you are doing CV you can set the tracking as nested.
-![mlflow code](images/2_code.png)
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-### MLFlow metadata
+<!-- ACKNOWLEDGMENTS -->
 
-There is no constraint between runs to have the same metadata tracked. I.e. for one run you can track different tags, different metrics, and different parameters (in cv some parameters might not exist for some runs so this .. makes sense to be flexible).
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-- tags can be anything you want.. like if you do CV you might want to tag the best model as "best"
-- params are perfect for hypermeters and also for information about the data pipeline you use, if you scaling vs normalization and so on
-- metrics.. should be numeric values as these can get plotted
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-![mlflow metadata](images/3_metadata.png)
+[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
+[contributors-url]: https://github.com/aaronlakeman/grain-boundary-detection/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
+[forks-url]: hhttps://github.com/aaronlakeman/grain-boundary-detection/network/members
+[stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
+[stars-url]: https://github.com/aaronlakeman/grain-boundary-detection/stargazers
+[issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
+[issues-url]: https://github.com/aaronlakeman/grain-boundary-detection/issues
+[license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
+[license-url]: https://github.com/aaronlakeman/grain-boundary-detection/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/linkedin_username
+[product-screenshot]: images/screenshot.png

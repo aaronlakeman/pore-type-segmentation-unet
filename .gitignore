@@ -133,6 +133,8 @@ data/*.csv
 models/*.sav
 mlruns
 models/*
+.vscode
+.DS_Store
 
 # MacOS
 .DS_Store

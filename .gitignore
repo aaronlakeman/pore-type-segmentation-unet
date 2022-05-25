@@ -133,6 +133,7 @@ data/*.csv
 models/*.sav
 mlruns
 models/*
+Images/
 .vscode
 .DS_Store
 

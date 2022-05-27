@@ -141,6 +141,8 @@ models/*
 #config file has sensitive data
 .mlflow_uri
 
-notebooks/Images/
+notebooks/images/
 notebooks/unet/
 notebooks/mask
+notebooks/tiled_images
+notebooks/tiled_mask

@@ -129,12 +129,11 @@ dmypy.json
 .pyre/
 
 # DATA
-data/*.csv
+data/
 models/*.sav
 mlruns
 models/*
 .vscode
-.DS_Store
 
 # MacOS
 .DS_Store

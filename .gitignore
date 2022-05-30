@@ -128,10 +128,9 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# DATA
-data/
-models/*.sav
-mlruns
+# Data
+data/original_data
+data/**/*.tif
 models/*
 .vscode
 

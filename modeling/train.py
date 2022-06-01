@@ -1,126 +1,61 @@
-from logging import getLogger
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.linear_model import LinearRegression
-import pickle
-import warnings
-import mlflow
-from mlflow.sklearn import save_model  # , log_model
+from keras.models import Model
+from keras.layers import Input, Conv2D, Conv2DTranspose, BatchNormalization
+from keras.layers import Activation, MaxPool2D, Concatenate
 
-from modeling.feature_engineering import (
-    fill_missing_values,
-    drop_column,
-    transform_altitude,
-    altitude_high_meters_mean,
-    altitude_mean_log_mean,
-    altitude_low_meters_mean,
-)
+# Building Unet by dividing encoder and decoder into blocks
+def conv_block(input, num_filters):
+    x = Conv2D(num_filters, 3, padding="same")(input)
+    x = BatchNormalization()(x)  # Not in the original network.
+    x = Activation("relu")(x)
 
-from modeling.config import TRACKING_URI, EXPERIMENT_NAME
+    x = Conv2D(num_filters, 3, padding="same")(x)
+    x = BatchNormalization()(x)  # Not in the original network
+    x = Activation("relu")(x)
 
-warnings.filterwarnings("ignore")
-logger = getLogger(__name__)
+    return x
 
 
-def __get_data():
-    logger.info("Getting the data")
-    # coffee data
-    url = "https://github.com/jldbc/coffee-quality-database/raw/master/data/robusta_data_cleaned.csv"
-    coffee_features = pd.read_csv(url)
-
-    # coffee score
-
-    url = "https://raw.githubusercontent.com/jldbc/coffee-quality-database/master/data/robusta_ratings_raw.csv"
-    coffee_quality = pd.read_csv(url)
-
-    # cleaning data and preparing
-    Y = coffee_quality["quality_score"]
-    X = coffee_features.select_dtypes(["number"])
-
-    # splittin into train and test
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, Y, test_size=0.30, random_state=42
-    )
-    ## in order to exemplify how the predict will work.. we will save the y_train
-    logger.info("Saving test data in the data folder .. wo feat eng")
-    X_test.to_csv("data/X_test.csv", index=False)
-    y_test.to_csv("data/y_test.csv", index=False)
-
-    logger.info("Feature engineering on train")
-    X_train = transform_altitude(X_train)
-    X_train = drop_column(X_train, col_name="Unnamed: 0")
-    X_train = drop_column(X_train, col_name="Quakers")
-    X_train = fill_missing_values(X_train)
-
-    # feature eng on test data
-    logger.info("Feature engineering on test")
-    X_test = transform_altitude(X_test)
-    X_test = drop_column(X_test, col_name="Unnamed: 0")
-    X_test = drop_column(X_test, col_name="Quakers")
-    X_test = fill_missing_values(X_test)
-
-    return X_train, X_test, y_train, y_test
+# Encoder block: Conv block followed by maxpooling
+def encoder_block(input, num_filters):
+    x = conv_block(input, num_filters)
+    p = MaxPool2D((2, 2))(x)
+    return x, p
 
 
-def __compute_and_log_metrics(
-    y_true: pd.Series, y_pred: pd.Series, prefix: str = "train"
-):
-    mse = mean_squared_error(y_true, y_pred)
-    r2 = r2_score(y_true, y_pred)
-
-    logger.info(
-        "Linear Regression performance on "
-        + str(prefix)
-        + " set: MSE = {:.1f}, R2 = {:.1%},".format(mse, r2)
-    )
-    mlflow.log_metric(prefix + "-" + "MSE", mse)
-    mlflow.log_metric(prefix + "-" + "R2", r2)
-
-    return mse, r2
+# Decoder block
+# skip features gets input from encoder for concatenation
+def decoder_block(input, skip_features, num_filters):
+    x = Conv2DTranspose(num_filters, (2, 2), strides=2, padding="same")(input)
+    x = Concatenate()([x, skip_features])
+    x = conv_block(x, num_filters)
+    return x
 
 
-def run_training():
-    logger.info(f"Getting the data")
-    X_train, X_test, y_train, y_test = __get_data()
+# Build Unet using the blocks
+def build_unet(input_shape, n_classes):
+    inputs = Input(input_shape)
 
-    logger.info("Training simple model and tracking with MLFlow")
-    mlflow.set_tracking_uri(TRACKING_URI)
-    mlflow.set_experiment(EXPERIMENT_NAME)
-    # model
-    logger.info("Training a simple linear regression")
-    with mlflow.start_run():
-        reg = LinearRegression().fit(X_train, y_train)
-        # taking some parameters out of the feature eng.. in your case you can use the params from CV
-        params = {
-            "altitude_low_meters_mean": altitude_low_meters_mean,
-            "altitude_high_meters_mean": altitude_high_meters_mean,
-            "altitude_mean_log_mean": altitude_mean_log_mean,
-            "fit_intercept": True,
-        }
-        mlflow.log_params(params)
-        mlflow.set_tag("worst_model", "True")
-        y_train_pred = reg.predict(X_train)
+    s1, p1 = encoder_block(inputs, 64)
+    s2, p2 = encoder_block(p1, 128)
+    s3, p3 = encoder_block(p2, 256)
+    s4, p4 = encoder_block(p3, 512)
 
-        __compute_and_log_metrics(y_train, y_train_pred)
+    b1 = conv_block(p4, 1024)  # Bridge
 
-        y_test_pred = reg.predict(X_test)
-        __compute_and_log_metrics(y_test, y_test_pred, "test")
+    d1 = decoder_block(b1, s4, 512)
+    d2 = decoder_block(d1, s3, 256)
+    d3 = decoder_block(d2, s2, 128)
+    d4 = decoder_block(d3, s1, 64)
 
-        logger.info("this is obviously fishy")
-        # saving the model
-        # logger.info("Saving model in the model folder")
-        # path = "models/linear"
-        # save_model(sk_model=reg, path=path)
-        # logging the model to mlflow will not work without a AWS Connection setup.. too complex for now
+    if n_classes == 1:  # Binary
+        activation = "sigmoid"
+    else:
+        activation = "softmax"
 
+    outputs = Conv2D(n_classes, 1, padding="same", activation=activation)(
+        d4
+    )  # Change the activation based on n_classes
+    print(activation)
 
-if __name__ == "__main__":
-    import logging
-
-    logger = logging.getLogger()
-    logging.basicConfig(format="%(asctime)s: %(message)s")
-    logging.getLogger("pyhive").setLevel(logging.CRITICAL)  # avoid excessive logs
-    logger.setLevel(logging.INFO)
-
-    run_training()
+    model = Model(inputs, outputs, name="U-Net")
+    return model

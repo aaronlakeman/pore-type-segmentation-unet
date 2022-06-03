@@ -105,7 +105,7 @@ def create_tiles(
                 os.remove(os.path.join(msk_target_dir + msk_patch))
 
         # Check which images correspond to those masks and delete them
-        print("removing corresponding image patches...")
+        print(f"removing {len(unwanted)} mask- and corresponding image patches...")
         for img_patch in os.listdir(img_target_dir):
             for entry in unwanted:
                 if img_patch[3:] == entry[3:]:

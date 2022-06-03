@@ -3,6 +3,7 @@ import splitfolders
 import shutil
 import cv2
 import patchify
+import numpy as np
 
 
 def folder_structure(target_dir="../data/"):
@@ -30,14 +31,17 @@ def create_tiles(
     step=512,
     source_dir="../data/data_original/",
     target_dir="../data/data_temp/",
+    remove=True,
 ):
-    """Creates smaller patches of `size` from large images in `source_dir` and copies them to `target dir`.
+    """Creates smaller patches of `size` from large images in `source_dir` and copies them to subfolders in `target dir`.
 
     Args:
         size (int, optional): Size of the patches in pixels. Defaults to 512. Make sure the original image dimension are multiples of this size.
         source_dir (str, optional): Directory where the large images are stored. Defaults to '../data/data_original/'.
-        target_dir (str, optional): Directory . Defaults to '../data/data_temp/'.
+        target_dir (str, optional): Directory where the patched images will be stored. Defaults to '../data/data_temp/'.
+        remove (boolean, optional): Whether to remove masks and their corresponding images that contain 1 or fewer features.
     """
+    # Create patches of images
     image_dir = source_dir + "images/"
     img_target_dir = target_dir + "images/"
     img_counter = 1
@@ -52,7 +56,7 @@ def create_tiles(
                     single_patch_img = patches[i, j]
                     if not cv2.imwrite(
                         img_target_dir
-                        + "image_"
+                        + "img_"
                         + str(img_counter)
                         + "_"
                         + str(i)
@@ -64,6 +68,7 @@ def create_tiles(
                         raise Exception("Could not write the image")
             img_counter += 1
 
+    # Create patches of masks
     mask_dir = source_dir + "masks/"
     msk_target_dir = target_dir + "masks/"
     msk_counter = 1
@@ -78,7 +83,7 @@ def create_tiles(
                     single_patch_img = patches[i, j]
                     if not cv2.imwrite(
                         msk_target_dir
-                        + "mask_"
+                        + "msk_"
                         + str(msk_counter)
                         + "_"
                         + str(i)
@@ -89,7 +94,24 @@ def create_tiles(
                     ):
                         raise Exception("Could not write the image")
             msk_counter += 1
-    print("Done")
+
+    if remove:
+        # Check if masks contain only one or fewer features and add them to a list
+        unwanted = []
+        print("getting low feature masks...")
+        for msk_patch in os.listdir(msk_target_dir):
+            if len(np.unique(cv2.imread(msk_target_dir + msk_patch, 0))) <= 1:
+                unwanted.append(msk_patch)
+                os.remove(os.path.join(msk_target_dir + msk_patch))
+
+        # Check which images correspond to those masks and delete them
+        print("removing corresponding image patches...")
+        for img_patch in os.listdir(img_target_dir):
+            for entry in unwanted:
+                if img_patch[3:] == entry[3:]:
+                    os.remove(os.path.join(img_target_dir + img_patch))
+
+    print("Done.")
     return
 
 

@@ -1,6 +1,9 @@
 from keras.models import Model
 from keras.layers import Input, Conv2D, Conv2DTranspose, BatchNormalization
 from keras.layers import Activation, MaxPool2D, Concatenate
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from sklearn.preprocessing import LabelEncoder
+from tensorflow.keras.utils import to_categorical
 
 # Building Unet by dividing encoder and decoder into blocks
 def conv_block(input, num_filters):
@@ -59,3 +62,58 @@ def build_unet(input_shape, n_classes):
 
     model = Model(inputs, outputs, name="U-Net")
     return model
+
+
+# Define a function to perform additional preprocessing after data generation
+# For example, scale images, convert masks to categorical, etc.
+def preprocess_data(img, mask, num_class):
+    # Scale images
+    img = (
+        img / 255.0
+    )  # This can be done in ImageDataGenerator but showing it outside as an example
+    # Convert mask to one-hot
+    labelencoder = LabelEncoder()
+    n, h, w, c = mask.shape
+    mask = mask.reshape(-1, 1)
+    mask = labelencoder.fit_transform(mask)
+    mask = mask.reshape(n, h, w, c)
+    mask = to_categorical(mask, num_class)
+
+    return (img, mask)
+
+
+# Define the generator.
+# We are not doing any rotation or zoom to make sure mask values are not interpolated.
+# It is important to keep pixel values in mask as 0, 1, 2, 3, .....
+def trainGenerator(train_img_path, train_mask_path, num_class, batch_size, seed):
+
+    img_data_gen_args = dict(
+        horizontal_flip=True, vertical_flip=True, fill_mode="reflect"
+    )
+
+    image_datagen = ImageDataGenerator(**img_data_gen_args)
+    mask_datagen = ImageDataGenerator(**img_data_gen_args)
+
+    image_generator = image_datagen.flow_from_directory(
+        train_img_path,
+        class_mode=None,
+        color_mode="grayscale",
+        target_size=(512, 512),
+        batch_size=batch_size,
+        seed=seed,
+    )
+
+    mask_generator = mask_datagen.flow_from_directory(
+        train_mask_path,
+        class_mode=None,
+        color_mode="grayscale",
+        target_size=(512, 512),
+        batch_size=batch_size,
+        seed=seed,
+    )
+
+    train_generator = zip(image_generator, mask_generator)
+
+    for (img, mask) in train_generator:
+        img, mask = preprocess_data(img, mask, num_class)
+        yield (img, mask)

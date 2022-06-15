@@ -50,6 +50,27 @@ def make_pred(image_patches, mask_patches, model):
     return predicted_patches, patches_mask, pred_patches, true_patches
 
 
+def patch_masks(true_patch, baseline_patch):
+    # Make predictions and save predictions
+    output_true_patches = []
+    output_baseline_patches = []
+
+    for i in range(true_patch.shape[0]):
+        for j in range(true_patch.shape[1]):
+
+            single_true_patch = true_patch[i, j, :, :]
+            single_baseline_patch = baseline_patch[i, j, :, :]
+
+            # flatten the predict and the true mask
+            true_flatten = single_true_patch.flatten()
+            baseline_flatten = single_baseline_patch.flatten()
+
+            output_true_patches.append(true_flatten)
+            output_baseline_patches.append(baseline_flatten)
+
+    return output_true_patches, output_baseline_patches
+
+
 def single_image_IoU(true_patches, pred_patches):
     """Calculates the class IoU and mean IoU for each image patch of a single larger image and saves them in a list
 
@@ -101,7 +122,7 @@ def single_image_IoU(true_patches, pred_patches):
                     c3_true += 1
                 else:
                     c3_false += 1
-            else:
+            elif true[k] == 3:
                 if pred[k] == 3:
                     c4_true += 1
                 else:
@@ -110,13 +131,13 @@ def single_image_IoU(true_patches, pred_patches):
         # append all values within a patch where values are observed
         mean_IoU.append((c1_true + c2_true + c3_true + c4_true) / len(pred))
 
-        if c1_true > 0 and c1_false > 0:
+        if c1_true > 0 or c1_false > 0:
             class_1_IoU.append((c1_true) / (c1_true + c1_false))
-        if c2_true > 0 and c2_false > 0:
+        if c2_true > 0 or c2_false > 0:
             class_2_IoU.append((c2_true) / (c2_true + c2_false))
-        if c3_true > 0 and c3_false > 0:
+        if c3_true > 0 or c3_false > 0:
             class_3_IoU.append((c3_true) / (c3_true + c3_false))
-        if c4_true > 0 and c4_false > 0:
+        if c4_true > 0 or c4_false > 0:
             class_4_IoU.append((c4_true) / (c4_true + c4_false))
 
     return mean_IoU, class_1_IoU, class_2_IoU, class_3_IoU, class_4_IoU

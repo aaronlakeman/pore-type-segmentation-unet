@@ -18,11 +18,11 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/aaronlakeman/grain-boundary-detection">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  <a href="https://github.com/aaronlakeman/pore-type-segmentation-unet">
+    <img src="images/new_logo.jpg" alt="Logo" width="400" height="400">
   </a>
 
-<h3 align="center">Grain Boundary Detection in Salt Thin Section using Machine Learning</h3>
+<h3 align="center">Semantic Segmentation of Pores and Fractures in BiB-SEM Images</h3>
 
   <p align="center">
     This project was realized as the capstone project of the neuefische data science bootcamp.
@@ -64,16 +64,16 @@
 
 ## About The Project
 
-![salt](./images/salt.jpeg)
+Hollow Earth represents a machine learning based approach to identifying pores and fractures in SEM images of natural rocks. By using a modified U-Net architecture, it automatically segments and classifies images thereby accelerating the workflow and improving the results of this time-intensive task. This project is developed in cooperation with [MaP GmbH, Aachen](https://www.m-a-p.expert/).
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
+The repository includes several notebooks demonstrating the applied workflow. Initial data screening (EDA-and-modeling.ipynb) and data preparation (preprocessing.ipynb) are followed by several semantic segmentation approaches. These include a basic U-Net model (Semantic_Segmentation.ipynb), an attentionres U-Net model (attnresunet_colab.ipynb) and a U-Net model which substitutes the U-Net encoder with a pretrained net (pretrained_semantic_segmentation.ipynb). Finally, trained models can be utilized to segment and label unseen data (predict.ipynb).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Built With
 
 - [Tensorflow](https://www.tensorflow.org/)
-- [GDAL](https://gdal.org/)
+- [Keras](https://keras.io/)
 - [Scikit-learn](https://scikit-learn.org/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -148,7 +148,8 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Maximilian Hallenberger - max.hallenberger@gmail.com
+Aaron Teichmann -
 
 Project Link: [https://github.com/aaronlakeman/grain-boundary-detection](https://github.com/aaronlakeman/grain-boundary-detection)
 

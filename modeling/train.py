@@ -5,6 +5,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from sklearn.preprocessing import LabelEncoder
 from tensorflow.keras.utils import to_categorical
 
+### The following functions represent the elementary building blocks of the U-Net architecture
 # Building Unet by dividing encoder and decoder into blocks
 def conv_block(input, num_filters):
     x = Conv2D(num_filters, 3, padding="same")(input)
@@ -67,6 +68,16 @@ def build_unet(input_shape, n_classes):
 # Define a function to perform additional preprocessing after data generation
 # For example, scale images, convert masks to categorical, etc.
 def preprocess_data(img, mask, num_class):
+    """Preprocesses masks and image data
+
+    Args:
+        img (_array_): array representing single image
+        mask (_array_): array representing single mask
+        num_class (_int_): integer representing the number of classes present
+
+    Returns:
+        array: returns preprocessed image and mask
+    """
     # Scale images
     img = (
         img / 255.0
@@ -86,6 +97,18 @@ def preprocess_data(img, mask, num_class):
 # We are not doing any rotation or zoom to make sure mask values are not interpolated.
 # It is important to keep pixel values in mask as 0, 1, 2, 3, .....
 def trainGenerator(train_img_path, train_mask_path, num_class, batch_size, seed):
+    """Augments data for training
+
+    Args:
+        train_img_path (_string_): directory of images
+        train_mask_path (_string_): directory of masks
+        num_class (_int_): number of classes present in masks
+        batch_size (_int_): batch size used in training
+        seed (_int_): random seed
+
+    Yields:
+        array: yields the augmented images and masks
+    """
 
     img_data_gen_args = dict(
         horizontal_flip=True, vertical_flip=True, fill_mode="reflect"

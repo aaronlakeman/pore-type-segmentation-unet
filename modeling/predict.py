@@ -144,4 +144,13 @@ def single_image_IoU(true_patches, pred_patches):
 
 
 def map_func(val, dictionary):
+    """Small function needed for one-hot encoding masks
+
+    Args:
+        val (_array_): input images
+        dictionary (_dict_): dictionary containing the color values present in the original mask and corresponding one-hot numbers
+
+    Returns:
+        _array_: returns one-hot encoded images
+    """
     return dictionary[val] if val in dictionary else val

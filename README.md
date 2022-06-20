@@ -74,7 +74,6 @@ The repository includes several notebooks demonstrating the applied workflow. In
 - [Tensorflow](https://www.tensorflow.org/)
 - [Keras](https://keras.io/)
 - [OpenCV](https://opencv.org/)
--
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -109,7 +108,7 @@ pip install -r requirements.txt
 
 ## Usage
 
-This is a placeholder for
+Hopefully you'll find a detailed example in the future here.
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
@@ -159,15 +158,15 @@ Project Link: [https://github.com/aaronlakeman/pore-type-segmentation-unet](http
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/github_username/pore-type-segmentation-unet.svg?style=for-the-badge
 [contributors-url]: https://github.com/aaronlakeman/pore-type-segmentation-unet/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
+[forks-shield]: https://img.shields.io/github/forks/aaronlakeman/pore-type-segmentation-unet.svg?style=for-the-badge
 [forks-url]: hhttps://github.com/aaronlakeman/pore-type-segmentation-unet/network/members
-[stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/aaronlakeman/repo_name.svg?style=for-the-badge
 [stars-url]: https://github.com/aaronlakeman/pore-type-segmentation-unet/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/aaronlakeman/pore-type-segmentation-unet.svg?style=for-the-badge
 [issues-url]: https://github.com/aaronlakeman/pore-type-segmentation-unet/issues
-[license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/aaronlakeman/pore-type-segmentation-unet.svg?style=for-the-badge
 [license-url]: https://github.com/aaronlakeman/pore-type-segmentation-unet/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username

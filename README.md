@@ -9,17 +9,16 @@
 -->
 
 [![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
+
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a href="https://github.com/aaronlakeman/pore-type-segmentation-unet">
-    <img src="images/new_logo.jpg" alt="Logo" width="400" height="400">
+    <img src="images/logo.png" alt="Logo" width="320" height="426">
   </a>
 
 <h3 align="center">Semantic Segmentation of Pores and Fractures in BiB-SEM Images</h3>
@@ -29,9 +28,9 @@
     <br />
     <br />
     <br />
-      <a href="https://github.com/aaronlakeman/grain-boundary-detection/issues">Report Bug</a>
+      <a href="https://github.com/aaronlakeman/pore-type-segmentation-unet/issues">Report Bug</a>
     ·
-    <a href="https://github.com/aaronlakeman/grain-boundary-detection/issues">Request Feature</a>
+    <a href="https://github.com/aaronlakeman/pore-type-segmentation-unet/issues">Request Feature</a>
   </p>
 </div>
 
@@ -74,7 +73,8 @@ The repository includes several notebooks demonstrating the applied workflow. In
 
 - [Tensorflow](https://www.tensorflow.org/)
 - [Keras](https://keras.io/)
-- [Scikit-learn](https://scikit-learn.org/)
+- [OpenCV](https://opencv.org/)
+-
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -84,10 +84,6 @@ The repository includes several notebooks demonstrating the applied workflow. In
 
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
-
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
 
 ### Installation
 
@@ -113,7 +109,7 @@ pip install -r requirements.txt
 
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+This is a placeholder for
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
@@ -148,10 +144,11 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Contact
 
-Maximilian Hallenberger - max.hallenberger@gmail.com
-Aaron Teichmann -
+Maximilian Hallenberger - max.hallenberger [@] gmail [dot] com
 
-Project Link: [https://github.com/aaronlakeman/grain-boundary-detection](https://github.com/aaronlakeman/grain-boundary-detection)
+Aaron Teichmann - aaron.teichmann [@] gmail [dot] com
+
+Project Link: [https://github.com/aaronlakeman/pore-type-segmentation-unet](https://github.com/aaronlakeman/pore-type-segmentation-unet)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -163,15 +160,15 @@ Project Link: [https://github.com/aaronlakeman/grain-boundary-detection](https:/
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
 [contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
-[contributors-url]: https://github.com/aaronlakeman/grain-boundary-detection/graphs/contributors
+[contributors-url]: https://github.com/aaronlakeman/pore-type-segmentation-unet/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
-[forks-url]: hhttps://github.com/aaronlakeman/grain-boundary-detection/network/members
+[forks-url]: hhttps://github.com/aaronlakeman/pore-type-segmentation-unet/network/members
 [stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
-[stars-url]: https://github.com/aaronlakeman/grain-boundary-detection/stargazers
+[stars-url]: https://github.com/aaronlakeman/pore-type-segmentation-unet/stargazers
 [issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
-[issues-url]: https://github.com/aaronlakeman/grain-boundary-detection/issues
+[issues-url]: https://github.com/aaronlakeman/pore-type-segmentation-unet/issues
 [license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
-[license-url]: https://github.com/aaronlakeman/grain-boundary-detection/blob/master/LICENSE.txt
+[license-url]: https://github.com/aaronlakeman/pore-type-segmentation-unet/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
 [product-screenshot]: images/screenshot.png

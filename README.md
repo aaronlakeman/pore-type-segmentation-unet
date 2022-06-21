@@ -33,7 +33,6 @@
   </p>
 </div>
 
-
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
@@ -74,6 +73,7 @@ The repository includes several notebooks demonstrating the applied workflow. In
 - [Tensorflow](https://www.tensorflow.org/)
 - [Keras](https://keras.io/)
 - [OpenCV](https://opencv.org/)
+- [scikit-learn](https://scikit-learn.org/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -152,8 +152,6 @@ Project Link: [https://github.com/aaronlakeman/pore-type-segmentation-unet](http
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- ACKNOWLEDGMENTS -->
-
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
